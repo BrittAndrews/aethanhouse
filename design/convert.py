@@ -166,18 +166,101 @@ def expand(html, vals):
 
 CONTACT_SCRIPT = """
 <script>
-  // Swap the form for the confirmation block on submit, matching the design's
-  // sent / notSent states. No backend yet - see the note in the README.
+  // Post to Netlify Forms, then swap the form for the confirmation block
+  // (the sent / notSent states from the design). If the POST fails - running
+  // locally, or Netlify not reachable - say so and offer the mailto instead.
   (function () {
     var form = document.getElementById('contact-form');
     if (!form) return;
+    var wrap = document.getElementById('contact-form-wrap');
+    var sent = document.getElementById('contact-sent');
+
+    function show() { wrap.hidden = true; sent.hidden = false; }
+    function fail() {
+      var p = document.getElementById('contact-error');
+      if (!p) {
+        p = document.createElement('p');
+        p.id = 'contact-error';
+        p.style.cssText = 'margin:16px 0 0;font:400 14px/1.55 Inter,sans-serif;color:#985633';
+        form.appendChild(p);
+      }
+      p.innerHTML = 'That did not send. Email ' +
+        '<a href="mailto:britt@aethanhouse.com">britt@aethanhouse.com</a> and I will pick it up there.';
+      btn.disabled = false;
+      btn.textContent = label;
+    }
+
+    var btn = form.querySelector('button[type=submit]');
+    var label = btn ? btn.textContent : '';
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      document.getElementById('contact-form-wrap').hidden = true;
-      document.getElementById('contact-sent').hidden = false;
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      }).then(function (r) { r.ok ? show() : fail(); }).catch(fail);
     });
   })();
 </script>"""
+
+
+# ---------- post-compile patches ----------
+# Edits that live here rather than in the .dc.html sources, so re-running the
+# compiler after a design change keeps them. Each entry is (page, old, new) and
+# must match exactly once, or the build fails loudly rather than silently
+# dropping the change.
+
+HERO_OLD = ('<img src="assets/projects/birmingham/after_full_kitchen.jpg" '
+            'alt="Birmingham kitchen \u2014 finished view to the island, beam, glass-front uppers, '
+            'and stainless range" style="width:100%;height:560px;object-fit:cover">')
+HERO_NEW = ('<img src="assets/hero-triptych.jpg" '
+            'alt="Three Aethan House interiors \u2014 the Birmingham dining room and kitchen, '
+            'the galley range wall, and the Delaney nursery millwork" '
+            'style="width:100%;height:auto;display:block" width="2400" height="1000">')
+
+BUILDER_CTA_ANCHOR = '<div style="display:flex;gap:24px;align-items:center;margin-top:64px;flex-wrap:wrap">'
+BUILDER_CTA = ('<div style="margin-top:64px;padding:32px;border:1px solid var(--rule-on-dark);'
+               'border-radius:var(--radius);display:flex;gap:32px;align-items:center;'
+               'justify-content:space-between;flex-wrap:wrap">\n'
+               '<div style="max-width:560px">\n'
+               '<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;'
+               'color:#C87F55;margin:0 0 12px">Price It Yourself</p>\n'
+               '<h3 style="font:400 32px/1.2 \'Cormorant Garamond\',serif;letter-spacing:-.01em;'
+               'color:#F2EBE1;margin:0 0 12px">Not sure which tier fits which room?</h3>\n'
+               '<p style="font-size:16px;line-height:1.65;color:#A8A093;margin:0">Build the project room by '
+               'room, add what you need, and see a rough range in about two minutes. Nothing is sent to me '
+               'until you decide to send it.</p>\n'
+               '</div>\n'
+               '<a href="project-builder.html" style="background:#C87F55;color:#1C2621;font:500 14px/1 '
+               'Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:16px 32px;'
+               'border-radius:2px;text-decoration:none;white-space:nowrap">Open the Project Builder</a>\n'
+               '</div>\n')
+
+PATCHES = [
+    # A cropped triptych of Britt's own photography reads better as a portfolio
+    # hero than one portrait shot squeezed into a 560px band.
+    ('index.html', HERO_OLD, HERO_NEW),
+    # Give the Project Builder a real entry point on the home page, not just a nav link.
+    ('index.html', BUILDER_CTA_ANCHOR, BUILDER_CTA + BUILDER_CTA_ANCHOR),
+    # "The Reimagining Day" renamed; the DS allows one italic phrase per heading.
+    ('services.html',
+     "<h2 style=\"font:400 44px/1.12 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0;"
+     "max-width:20ch\">The Reimagining <em>Day</em>.</h2>",
+     "<h2 style=\"font:400 44px/1.12 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0;"
+     "max-width:20ch\">The <em>Second Look</em>.</h2>"),
+]
+
+def apply_patches(dst, doc):
+    for page, old, new in PATCHES:
+        if page != dst:
+            continue
+        n = doc.count(old)
+        if n != 1:
+            raise SystemExit('patch for %s matched %d times (expected 1): %.70s...' % (dst, n, old))
+        doc = doc.replace(old, new, 1)
+    return doc
 
 # ---------- main ----------
 def convert(name):
@@ -204,7 +287,18 @@ def convert(name):
     body = expand(body, vals)
 
     if name == 'Contact.dc.html':
-        body = body.replace('<form onSubmit="{{ onSubmit }}"', '<form id="contact-form"')
+        # Wire the form to Netlify Forms so the submit button actually delivers.
+        # Netlify detects data-netlify at deploy time by parsing the static HTML.
+        body = body.replace(
+            '<form onSubmit="{{ onSubmit }}"',
+            '<form id="contact-form" name="contact" method="POST" data-netlify="true" '
+            'netlify-honeypot="bot-field"')
+        # hidden fields Netlify needs, injected just inside the form tag
+        i = body.index('<form id="contact-form"')
+        i = body.index('>', i) + 1
+        body = (body[:i] + '\n<input type="hidden" name="form-name" value="contact">\n'
+                '<p hidden><label>Leave this empty: <input name="bot-field" tabindex="-1"></label></p>'
+                + body[i:])
         body += CONTACT_SCRIPT
 
     # .dc.html links -> real page names
@@ -215,6 +309,7 @@ def convert(name):
            '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
            '<title>%s</title>\n<link rel="stylesheet" href="assets/ds.css">\n<link rel="stylesheet" href="assets/site.css">\n%s\n</head>\n'
            '<body>\n%s\n</body>\n</html>\n' % (esc(title), helmet.strip(), body))
+    doc = apply_patches(dst, doc)
     io.open(os.path.join(OUT, dst), 'w', encoding='utf-8').write(doc)
     left = re.findall(r'<x-[a-z-]+|\{\{', doc)
     return dst, len(doc), left

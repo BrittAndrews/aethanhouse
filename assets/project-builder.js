@@ -13,7 +13,7 @@ const ADDONS = [
   { id: "render", label: "3D rendering", price: [500, 1500] },
   { id: "visit", label: "Additional site visit", price: [250, 250] },
   { id: "revision", label: "Extra revision round", price: [250, 500] },
-  { id: "reimagine", label: "Reimagining Day", price: [950, 950] },
+  { id: "reimagine", label: "The Second Look", price: [950, 950] },
   { id: "shopping", label: "Shopping day", price: [500, 1000] },
   { id: "checkin", label: "Virtual check-in", price: [200, 200] },
 ];

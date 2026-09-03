@@ -36,7 +36,9 @@
 </div>
 </div>
 <div id="contact-form-wrap">
-<form id="contact-form" style="margin-top:48px;display:grid;gap:24px;max-width:720px">
+<form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="margin-top:48px;display:grid;gap:24px;max-width:720px">
+<input type="hidden" name="form-name" value="contact">
+<p hidden><label>Leave this empty: <input name="bot-field" tabindex="-1"></label></p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
 <label style="display:grid;gap:8px">
 <span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">Name</span>
@@ -91,15 +93,41 @@
 </footer>
 </div>
 <script>
-  // Swap the form for the confirmation block on submit, matching the design's
-  // sent / notSent states. No backend yet - see the note in the README.
+  // Post to Netlify Forms, then swap the form for the confirmation block
+  // (the sent / notSent states from the design). If the POST fails - running
+  // locally, or Netlify not reachable - say so and offer the mailto instead.
   (function () {
     var form = document.getElementById('contact-form');
     if (!form) return;
+    var wrap = document.getElementById('contact-form-wrap');
+    var sent = document.getElementById('contact-sent');
+
+    function show() { wrap.hidden = true; sent.hidden = false; }
+    function fail() {
+      var p = document.getElementById('contact-error');
+      if (!p) {
+        p = document.createElement('p');
+        p.id = 'contact-error';
+        p.style.cssText = 'margin:16px 0 0;font:400 14px/1.55 Inter,sans-serif;color:#985633';
+        form.appendChild(p);
+      }
+      p.innerHTML = 'That did not send. Email ' +
+        '<a href="mailto:britt@aethanhouse.com">britt@aethanhouse.com</a> and I will pick it up there.';
+      btn.disabled = false;
+      btn.textContent = label;
+    }
+
+    var btn = form.querySelector('button[type=submit]');
+    var label = btn ? btn.textContent : '';
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      document.getElementById('contact-form-wrap').hidden = true;
-      document.getElementById('contact-sent').hidden = false;
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      }).then(function (r) { r.ok ? show() : fail(); }).catch(fail);
     });
   })();
 </script>
