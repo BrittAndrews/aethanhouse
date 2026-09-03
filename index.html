@@ -639,6 +639,53 @@
     color: rgba(250, 247, 242, 0.6); font-size: 14px; margin: 0;
   }
 
+  /* Section intro — how I work */
+  .how-i-work {
+    max-width: 640px;
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid rgba(250, 247, 242, 0.16);
+    font-size: 14.5px; line-height: 1.6;
+    color: rgba(250, 247, 242, 0.92);
+  }
+  .how-i-work strong { color: var(--terracotta); font-weight: 500; }
+
+  /* The Reimagining Day — two labeled forms inside an entry-weight card */
+  .reimagining-forms {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-top: 20px;
+  }
+  @media (max-width: 760px) { .reimagining-forms { grid-template-columns: 1fr; } }
+  .reimagining-form {
+    padding: 16px 18px;
+    border: 1px solid rgba(250, 247, 242, 0.18);
+  }
+  .reimagining-form h4 {
+    margin: 0 0 6px;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--terracotta);
+  }
+  .reimagining-form p {
+    margin: 0; font-size: 14px; line-height: 1.55;
+    color: rgba(250, 247, 242, 0.78);
+  }
+  .entry-note {
+    grid-column: 1 / -1;
+    margin-top: 6px; padding-top: 16px;
+    border-top: 1px solid rgba(250, 247, 242, 0.14);
+    font-size: 13px; line-height: 1.6;
+    color: rgba(250, 247, 242, 0.55);
+  }
+
+  /* Footer — what's not included */
+  .offer-excluded {
+    max-width: 720px; margin: 14px auto 0;
+    text-align: center;
+    font-size: 13px; line-height: 1.6;
+    color: rgba(250, 247, 242, 0.5);
+  }
+  .offer-excluded strong { color: rgba(250, 247, 242, 0.7); font-weight: 500; }
+
   /* À la carte table */
   .alacarte {
     margin-top: 56px;
@@ -1493,20 +1540,41 @@
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Work With Me</div>
-      <h2>Start with a session. Scale into a package.</h2>
-      <p>Every engagement begins with the same $500 Design Direction Session. From there, three tiered packages plus à la carte add-ons let you scope the work to match the project — without paying for what you don't need.</p>
+      <h2>Start with a call. Scale into a package.</h2>
+      <p>Every engagement follows the same path — a short call to check fit, a session that defines your home's style guide, then as much or as little help as you want putting it into practice. Decor, renovation, or both.</p>
+      <div class="how-i-work"><strong>How I work.</strong> I define the direction and specify what fits. You make the purchases. No trade markup, no procurement, no waiting on me to place an order.</div>
     </div>
 
-    <!-- Entry tier: $500 Design Direction Session -->
+    <!-- Step one: Fit Call -->
     <div class="offer-entry">
       <div>
-        <div class="tier-tag">Start Here · Every Project</div>
-        <h3>Design Direction Session</h3>
-        <p>The single foot-in-the-door engagement. One site visit, one written Design Direction Summary, one handoff call. You leave knowing the style direction, the palette, the functional priorities, and the budget landscape — and you have a clean menu of next steps in your hands.</p>
+        <div class="tier-tag">Step One · Before Anything Else</div>
+        <h3>Fit Call</h3>
+        <p>A short call to talk through your home, what you're hoping for, and whether I'm the right person for it. You'll leave with an honest read on scope and a realistic budget range — even if the answer is that you don't need me.</p>
         <ul>
-          <li>90-minute on-site visit (or remote review for out-of-town)</li>
-          <li>Written Design Direction Summary delivered as a PDF</li>
-          <li>30-minute handoff call to review</li>
+          <li>30-minute video call</li>
+          <li>Honest read on scope, sequence, and budget range</li>
+          <li>Credited in full toward whatever you book next</li>
+        </ul>
+      </div>
+      <div style="text-align: right;">
+        <div class="entry-price">$150</div>
+        <div class="entry-sub">30 minutes · Credited in full toward any package booked within 30 days</div>
+      </div>
+    </div>
+
+    <!-- Step two: Design Direction Session -->
+    <div class="offer-entry">
+      <div>
+        <div class="tier-tag">Step Two · Every Project</div>
+        <h3>Design Direction Session</h3>
+        <p>The foundation everything else is built on. One site visit, one written Home Style Guide, one handoff call. You leave knowing your palette, your materials, your proportions — and the rules that define what belongs in your home and what doesn't.</p>
+        <ul>
+          <li>90-minute on-site visit (or remote review for out-of-town projects)</li>
+          <li>Written Home Style Guide delivered as a PDF</li>
+          <li>What to keep — an honest read on what you already own: what stays, what works harder somewhere else, and what to let go of</li>
+          <li>Layout and flow notes, including any light renovation worth considering</li>
+          <li>30-minute handoff call to walk through it</li>
         </ul>
       </div>
       <div style="text-align: right;">
@@ -1517,61 +1585,88 @@
 
     <!-- Tier band -->
     <div class="tier-band">
-      <h3>Three packages, in escalating depth.</h3>
-      <p>Pick the tier that matches the scope. Move up later if the project grows.</p>
+      <h3>Three ways to take it further.</h3>
+      <p>Pick the depth that matches the project. Move up later if it grows.</p>
     </div>
 
     <div class="offer-grid">
       <div class="offer-card">
         <div class="tier-tag">Tier 1</div>
-        <h3>Finish &amp; Material Selection</h3>
-        <div class="price">From $1,500 / room</div>
-        <div class="price-sub">$3,500–5,000 · kitchen + bath</div>
-        <p class="lede">The natural next step after the Direction Session. Your palette translated into a specific, buyable spec sheet your GC can build from — no SKU guesswork.</p>
+        <h3>Style Direction</h3>
+        <div class="price">From $1,200 / room</div>
+        <div class="price-sub">$6,000–8,000 · whole home</div>
+        <p class="lede">For people doing it themselves who just need the field narrowed. Your Style Guide translated into concrete direction — categories, silhouettes, materials, and example pieces that show exactly what "right" looks like. You source it yourself, with a clear sense of what fits.</p>
         <ul>
-          <li>Paint colors with specific BM / SW codes</li>
-          <li>Flooring (species, stain, plank, finish)</li>
-          <li>Countertops, backsplash &amp; slab sourcing</li>
-          <li>Plumbing fixtures with brand &amp; model</li>
-          <li>Lighting — decorative &amp; functional</li>
-          <li>Cabinetry finish, door style &amp; hardware</li>
+          <li>Room-by-room direction built on your Home Style Guide</li>
+          <li>Example furnishings and decor — the look, not the SKU</li>
+          <li>Palette, material, and finish rules per room</li>
+          <li>What to keep, and how to use it differently</li>
+          <li>Where to spend and where to save</li>
           <li>One round of revisions included</li>
         </ul>
       </div>
 
       <div class="offer-card featured-tier">
         <div class="tier-tag">Tier 2 · Most Common</div>
-        <h3>Design Development</h3>
-        <div class="price">$3,500–7,500 / room</div>
-        <div class="price-sub">Scaled to complexity</div>
-        <p class="lede">For projects that need design work, not just selections. Everything in Tier 1, plus layouts, elevations, and the documentation set your GC actually wants in their hands.</p>
+        <h3>Specified Selections</h3>
+        <div class="price">From $1,800 / room</div>
+        <div class="price-sub">$9,000–14,000 · whole home</div>
+        <p class="lede">For people who want the decisions made. Everything in Tier 1, but specified — every recommendation is a real, buyable product, with a backup option shown wherever lead time, availability, or budget makes one useful.</p>
         <ul>
           <li>Everything in Tier 1</li>
-          <li>Space planning &amp; layout options</li>
-          <li>Cabinetry design with the cabinet maker</li>
-          <li>Tile layouts &amp; pattern design</li>
-          <li>Lighting plan — locations, switching, dimming</li>
-          <li>Elevations for key walls</li>
-          <li>Two rounds of revisions · two site visits</li>
+          <li>Specific products by brand, model, and finish — with a backup option wherever it's needed</li>
+          <li>Furniture, textiles, rugs, and decorative lighting</li>
+          <li>Art and mirror direction, sized to the wall</li>
+          <li>Paint colors with specific BM / SW codes</li>
+          <li>Shoppable list with pricing and lead times</li>
+          <li>What to keep, and exactly where each kept piece goes</li>
+          <li>Where the project includes renovation: flooring, tile, countertops, plumbing fixtures, and cabinetry finishes specified to the same standard</li>
+          <li>One round of revisions included</li>
         </ul>
       </div>
 
       <div class="offer-card">
-        <div class="tier-tag">Tier 3 · Full Service</div>
-        <h3>Full-Service Design</h3>
-        <div class="price">$10,000+ flat</div>
-        <div class="price-sub">Or 10–15% of total project budget</div>
-        <p class="lede">White-glove. Everything in Tier 2, plus furniture, procurement, and the install-day pass that turns a finished build into a finished home.</p>
+        <div class="tier-tag">Tier 3</div>
+        <h3>Design Development</h3>
+        <div class="price">$2,800–6,000 / room</div>
+        <div class="price-sub">Scaled to complexity</div>
+        <p class="lede">For rooms that need design work, not just selections. Everything in Tier 2, plus the drawing and planning that makes a room actually function — and an honest read on the light renovation that would make it work harder.</p>
         <ul>
           <li>Everything in Tier 2</li>
-          <li>Furniture, window treatments, rugs &amp; decor</li>
-          <li>Trade pricing &amp; procurement</li>
-          <li>Order placement, tracking &amp; receiving</li>
-          <li>Regular site visits through construction</li>
-          <li>Installation day &amp; styling</li>
-          <li>Punch list walk-through &amp; final photography</li>
+          <li>Furniture layouts and circulation planning</li>
+          <li>Custom pieces — upholstery, tables, built-ins</li>
+          <li>Decorative lighting plan and placement</li>
+          <li>Window treatment design and specification</li>
+          <li>Styled elevations for key walls</li>
+          <li>Light renovation recommendations — non-structural walls, openings, and flow fixes worth considering</li>
+          <li>Where the project includes renovation: tile layouts, cabinetry design with your cabinet maker, and a full lighting plan</li>
+          <li>Two rounds of revisions · two site visits</li>
         </ul>
       </div>
+    </div>
+
+    <!-- The Reimagining Day -->
+    <div class="offer-entry reimagining">
+      <div>
+        <div class="tier-tag">Hands-On</div>
+        <h3>The Reimagining Day</h3>
+        <p>Not an install day. A day where I come in and re-see the rooms you already have. Furniture moves, art comes down and goes back up somewhere better, rugs rotate, and the things you already own finally get used the way they should have been. Available on its own, or booked after your new pieces arrive.</p>
+        <div class="reimagining-forms">
+          <div class="reimagining-form">
+            <h4>On its own</h4>
+            <p>Working only with what you already own. Nothing new required, nothing bought.</p>
+          </div>
+          <div class="reimagining-form">
+            <h4>After the buy</h4>
+            <p>Booked once your new pieces from a Tier 1 or Tier 2 package have landed. Old and new, styled together in a single day.</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div class="entry-price">$950</div>
+        <div class="entry-sub">Per day</div>
+      </div>
+      <div class="entry-note">Requires a Design Direction Session first. I need to see the house before I can promise a day like this will land — it depends on what you already have to work with.</div>
     </div>
 
     <!-- À La Carte Add-Ons -->
@@ -1585,6 +1680,11 @@
           <div class="shop-name">Additional site visit</div>
           <div class="shop-price">$250</div>
           <p class="shop-note">Selection appointments, install checks, or progress walks. Per visit.</p>
+        </div>
+        <div class="shop-card">
+          <div class="shop-name">Additional room</div>
+          <div class="shop-price">Per-room rate</div>
+          <p class="shop-note">Priced at your package's per-room rate. Added to any Tier 1 or Tier 2 package at any point.</p>
         </div>
         <div class="shop-card">
           <div class="shop-name">Shopping &amp; showroom day</div>
@@ -1608,24 +1708,17 @@
         </div>
         <div class="shop-card">
           <div class="shop-name">Virtual design check-in</div>
-          <div class="shop-price">$150</div>
+          <div class="shop-price">$200</div>
           <p class="shop-note">45-minute video session between milestones, for clients who need a quick sanity check.</p>
-        </div>
-        <div class="shop-card">
-          <div class="shop-name">Installation &amp; styling day</div>
-          <div class="shop-price">$750–$1,500</div>
-          <p class="shop-note">Final reveal prep — moves furniture, layers in soft goods, coordinates photography.</p>
-        </div>
-        <div class="shop-card">
-          <div class="shop-name">Curated shopping list</div>
-          <div class="shop-price">$200–$500</div>
-          <p class="shop-note">Curated list of how to style and complete the space at your own pace. Often added on as the perfect final touch to any project.</p>
         </div>
       </div>
     </div>
 
     <div class="offer-note">
-      All packages require a 50% deposit to start; balance due before final deliverables are released. <em>Pricing revisited every six months.</em>
+      All packages require a 50% deposit to start; balance due before final deliverables are released. A room is one enclosed space — open-plan areas and primary suites with an attached bath or closet are scoped as two. I take a small number of projects each year. <em>Pricing revisited every six months.</em>
+    </div>
+    <div class="offer-excluded">
+      <strong>Not included:</strong> procurement, order placement, delivery scheduling, and vendor coordination — I specify, you buy. Structural renovation design and construction management are also outside my scope.
     </div>
   </div>
 </section>
@@ -1655,7 +1748,7 @@
     <div class="eyebrow">Get In Touch</div>
     <h2>Starting a remodel? <em>Let's talk early.</em></h2>
     <p>The best decisions happen before the first hammer swings — before tile is ordered, before walls are framed, before a single trade is on site. That's where I want to be in the conversation.</p>
-    <a class="contact-email" href="mailto:brittanyandrewsnyc@gmail.com?subject=Schedule%20a%20Consultation">Schedule a Consultation</a>
+    <a class="contact-email" href="mailto:brittanyandrewsnyc@gmail.com?subject=Fit%20Call">Book a Fit Call</a>
     <div class="contact-sub">brittanyandrewsnyc@gmail.com · Atlanta · Fulton · Cobb · Dekalb</div>
   </div>
 </section>
