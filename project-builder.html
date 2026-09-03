@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Builder — Aethan House</title>
+<link rel="stylesheet" href="assets/ds.css">
+<link rel="stylesheet" href="assets/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{margin:0}em{font-style:italic;color:#985633}a{color:#985633}a:hover{color:#C87F55}input,select,textarea{font-family:Inter,system-ui,sans-serif;font-size:16px;color:#2A2622;background:#FAF6F0;border:1px solid rgba(42,38,34,.24);border-radius:2px;padding:14px 16px;width:100%}input:focus,select:focus,textarea:focus,button:focus{outline:2px solid #C87F55;outline-offset:3px}.receipt-row:hover{background:#24302A}</style>
+</head>
+<body>
+<div id="pb-root"></div>
+<script type="text/template" id="pb-tpl">
+<div style="background:#FAF6F0;color:#2A2622;font:400 16px/1.65 Inter,system-ui,sans-serif">
+<nav style="position:sticky;top:0;z-index:30;background:rgba(250,246,240,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(42,38,34,.12)">
+<div style="max-width:1200px;margin:0 auto;padding:20px 32px;display:flex;align-items:center;gap:32px">
+<a href="index.html" style="font:400 24px/1 'Cormorant Garamond',serif;letter-spacing:-.01em;color:#2A2622;text-decoration:none;white-space:nowrap">Aethan House</a>
+<span style="flex:1"></span>
+<a href="projects.html" style="font:400 14px/1 Inter,sans-serif;text-decoration:none;color:#2A2622">Work</a>
+<a href="services.html" style="font:400 14px/1 Inter,sans-serif;text-decoration:none;color:#2A2622">Services</a>
+<a href="project-builder.html" style="font:400 14px/1 Inter,sans-serif;text-decoration:none;color:#985633">Project Builder</a>
+<a href="about.html" style="font:400 14px/1 Inter,sans-serif;text-decoration:none;color:#2A2622">About</a>
+<a href="contact.html" style="background:#985633;color:#FAF6F0;padding:12px 20px;border-radius:2px;font:500 12px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none">Book a Consultation</a>
+</div>
+</nav>
+<header style="max-width:1200px;margin:0 auto;padding:96px 32px 64px">
+
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 16px">Project Builder</p>
+<h1 style="font:400 64px/1.05 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0;max-width:20ch;text-wrap:pretty">Draw up your project, room by <em>room</em>.</h1>
+
+</header>
+<section style="max-width:1200px;margin:0 auto;padding:0 32px 128px;display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:start">
+<div>
+<div style="border-top:1px solid rgba(42,38,34,.12);padding-top:32px">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 12px">Step One</p>
+<h2 style="font:400 32px/1.2 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0">Where everything <em>starts</em>.</h2>
+
+<sc-for list="{{ baseRows }}" as="base" hint-placeholder-count="2">
+<div style="display: flex; align-items: flex-start; gap: 16px; padding: 20px 0; border-bottom: 1px solid rgba(42,38,34,.12)">
+
+<div style="flex:1">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#985633;margin:0 0 6px">Required</p>
+<p style="font:500 16px/1.4 Inter,sans-serif;margin:0">{{ base.label }}</p>
+<p style="font-size:14px;line-height:1.55;color:#6B635B;margin:4px 0 0">{{ base.note }}</p>
+</div>
+<span style="font:400 24px/1.2 'Cormorant Garamond',serif;font-variant-numeric:oldstyle-nums;color:#985633;white-space:nowrap">{{ base.priceLabel }}</span>
+</div>
+</sc-for>
+
+</div>
+<div style="margin-top: 52px; border-top: 1px solid rgba(42,38,34,.12); padding-top: 32px">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 12px">Step Two</p>
+<h2 style="font:400 32px/1.2 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0">Tell me about <font color="#985633"><i>your home.</i></font></h2>
+<label style="display: grid; gap: 8px; margin-top: 32px; max-width: 480px; width: 100%">
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">Give your project a name</span>
+<input type="text" value="{{ projectName }}" data-focus="projectName" onChange="{{ onProjectName }}" placeholder="The lake house, 1978" style="width: 100%">
+</label>
+<div data-menu="1" style="position:relative;margin-top:48px;z-index:12">
+<p style="font: 500 11px/1.2 Inter,sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #6B635B; margin: 0 0 12px; font-weight: 700">what style is your home today?<br></p>
+<button type="button" onClick="{{ onToggleArch }}" style="width:100%;background:#FAF6F0;border:1px solid {{ archBorder }};border-radius:2px;padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:44px">
+<span style="flex:1;font:400 16px/1.4 Inter,sans-serif;color:{{ archTextColor }}">{{ archSummary }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#985633">{{ archCount }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">{{ archToggleWord }}</span>
+</button>
+<sc-if value="{{ archOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;top:calc(100% + 4px);background:#FAF6F0;border:1px solid rgba(42,38,34,.24);border-radius:2px;max-height:420px;overflow:auto;z-index:14">
+<sc-for list="{{ archChips }}" as="chip" hint-placeholder-count="8">
+<button type="button" onClick="{{ chip.onToggle }}" style="width:100%;background:{{ chip.bg }};border:0;border-bottom:1px solid rgba(42,38,34,.12);padding:12px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:56px">
+<span style="width:14px;height:14px;border:1px solid {{ chip.markBorder }};background:{{ chip.mark }};border-radius:2px;flex:none"></span>
+<span style="color:#54634F;flex:none">{{ chip.icon }}</span>
+<span style="flex:1;display:grid;gap:2px">
+<span style="font:400 14px/1.4 Inter,sans-serif;color:#2A2622">{{ chip.label }}</span>
+<span style="font:400 12px/1.45 Inter,sans-serif;color:#6B635B">{{ chip.description }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ archOtherOpen }}" hint-placeholder-val="{{ false }}">
+<input type="text" value="{{ archOther }}" data-focus="archOther" onChange="{{ onArchOther }}" placeholder="Tell me the style" style="margin-top:16px;max-width:480px">
+</sc-if>
+<div data-menu="1" style="position:relative;margin-top:48px;z-index:11">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 12px">WHAT IS YOUR PERSONAL STYLE?</p>
+<button type="button" onClick="{{ onTogglePersonal }}" style="width:100%;background:#FAF6F0;border:1px solid {{ personalBorder }};border-radius:2px;padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:44px">
+<span style="flex:1;font:400 16px/1.4 Inter,sans-serif;color:{{ personalTextColor }}">{{ personalSummary }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#985633">{{ personalCount }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">{{ personalToggleWord }}</span>
+</button>
+<sc-if value="{{ personalOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;top:calc(100% + 4px);background:#FAF6F0;border:1px solid rgba(42,38,34,.24);border-radius:2px;max-height:420px;overflow:auto;z-index:13">
+<sc-for list="{{ personalChips }}" as="chip" hint-placeholder-count="8">
+<button type="button" onClick="{{ chip.onToggle }}" style="width:100%;background:{{ chip.bg }};border:0;border-bottom:1px solid rgba(42,38,34,.12);padding:12px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:56px">
+<span style="width:14px;height:14px;border:1px solid {{ chip.markBorder }};background:{{ chip.mark }};border-radius:2px;flex:none"></span>
+<span style="color:#54634F;flex:none">{{ chip.icon }}</span>
+<span style="flex:1;display:grid;gap:2px">
+<span style="font:400 14px/1.4 Inter,sans-serif;color:#2A2622">{{ chip.label }}</span>
+<span style="font:400 12px/1.45 Inter,sans-serif;color:#6B635B">{{ chip.description }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ personalOtherOpen }}" hint-placeholder-val="{{ false }}">
+<input type="text" value="{{ personalOther }}" data-focus="personalOther" onChange="{{ onPersonalOther }}" placeholder="Describe it in your own words" style="margin-top:16px;max-width:480px">
+</sc-if>
+</div>
+<div style="margin-top: 52px; border-top: 1px solid rgba(42,38,34,.12); padding-top: 32px">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 12px">Step Three · The rooms</p>
+<h2 style="font:400 32px/1.2 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0">Pick a tier per <em>room</em>.</h2>
+<p style="font-size:16px;line-height:1.65;color:#6B635B;max-width:68ch;margin:16px 0 0">The rooms every house has are listed for you. Customize the ones you want help with, leave the rest alone — a room only costs something once it has a tier.</p>
+<div style="display:grid;gap:16px;margin-top:32px">
+<sc-for list="{{ rows }}" as="row" hint-placeholder-count="5">
+<div id="{{ row.anchor }}" style="border:1px solid {{ row.cardBorder }};border-radius:2px;padding:24px 32px;position:relative;z-index:{{ row.z }};background:{{ row.cardBg }}">
+<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+<span style="color:#54634F;flex:none">{{ row.roomIcon }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#985633">{{ row.room }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">{{ row.status }}</span>
+<span style="flex:1"></span>
+<button type="button" onClick="{{ row.onRemove }}" style="background:transparent;border:1px solid rgba(42,38,34,.24);border-radius:2px;color:#6B635B;font:500 11px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:14px 16px;cursor:pointer;min-height:44px">Remove</button>
+<button type="button" onClick="{{ row.onToggleOpen }}" style="background:transparent;border:1px solid rgba(42,38,34,.24);border-radius:2px;color:#985633;font:500 11px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:14px 16px;cursor:pointer;min-height:44px">{{ row.customizeWord }}</button>
+</div>
+<sc-if value="{{ row.expanded }}" hint-placeholder-val="{{ true }}">
+<div>
+<div data-menu="1" style="position:relative;margin-top:24px;z-index:4">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 12px">Which room · pick one</p>
+<button type="button" onClick="{{ row.onToggleRoom }}" style="width:100%;background:#FAF6F0;border:1px solid {{ row.roomBorder }};border-radius:2px;padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:44px">
+<span style="flex:1;font:400 16px/1.4 Inter,sans-serif;color:#2A2622">{{ row.room }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">{{ row.roomToggleWord }}</span>
+</button>
+<sc-if value="{{ row.roomOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;top:calc(100% + 4px);background:#FAF6F0;border:1px solid rgba(42,38,34,.24);border-radius:2px;max-height:340px;overflow:auto;z-index:6">
+<sc-for list="{{ row.roomOptions }}" as="opt" hint-placeholder-count="6">
+<button type="button" onClick="{{ opt.onPick }}" style="width:100%;background:{{ opt.bg }};border:0;border-bottom:1px solid rgba(42,38,34,.12);padding:14px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:48px">
+<span style="width:14px;height:14px;border-radius:50%;border:1px solid {{ opt.markBorder }};background:{{ opt.mark }};flex:none"></span>
+<span style="color:#54634F;flex:none">{{ opt.icon }}</span>
+<span style="flex:1;font:400 14px/1.4 Inter,sans-serif;color:#2A2622">{{ opt.label }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div data-menu="1" style="position:relative;margin-top:24px;z-index:3">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 12px">Tier for this room · pick one</p>
+<button type="button" onClick="{{ row.onToggleTier }}" style="width:100%;background:#FAF6F0;border:1px solid {{ row.tierBorder }};border-radius:2px;padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:44px">
+<span style="flex:1;display:grid;gap:4px">
+<span style="font:500 14px/1.3 Inter,sans-serif;color:{{ row.tierTextColor }}">{{ row.tierName }}</span>
+<span style="font-size:13px;line-height:1.5;color:#6B635B">{{ row.tierBlurb }}</span>
+</span>
+<span style="font:400 16px/1.2 'Cormorant Garamond',serif;font-variant-numeric:oldstyle-nums;color:#985633;white-space:nowrap">{{ row.tierPrice }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">{{ row.tierToggleWord }}</span>
+</button>
+<sc-if value="{{ row.tierOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;top:calc(100% + 4px);background:#FAF6F0;border:1px solid rgba(42,38,34,.24);border-radius:2px;z-index:5">
+<sc-for list="{{ row.tiers }}" as="tier" hint-placeholder-count="4">
+<button type="button" onClick="{{ tier.onPick }}" style="width:100%;background:{{ tier.bg }};border:0;border-bottom:1px solid rgba(42,38,34,.12);padding:16px 20px;cursor:pointer;display:flex;align-items:flex-start;gap:16px;text-align:left">
+<span style="width:14px;height:14px;border-radius:50%;border:1px solid {{ tier.markBorder }};background:{{ tier.mark }};flex:none;margin-top:4px"></span>
+<span style="flex:1;display:grid;gap:4px">
+<span style="font:500 14px/1.3 Inter,sans-serif;color:#2A2622">{{ tier.name }}</span>
+<span style="font-size:13px;line-height:1.5;color:#6B635B">{{ tier.blurb }}</span>
+</span>
+<span style="font:400 16px/1.2 'Cormorant Garamond',serif;font-variant-numeric:oldstyle-nums;color:#985633;white-space:nowrap">{{ tier.priceLabel }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div data-menu="1" style="position:relative;margin-top:24px;z-index:2">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 12px">Add to this room · select all that apply</p>
+<button type="button" onClick="{{ row.onToggleAddons }}" style="width:100%;background:#FAF6F0;border:1px solid {{ row.addonBorder }};border-radius:2px;padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:44px">
+<span style="flex:1;font:400 14px/1.4 Inter,sans-serif;color:{{ row.addonTextColor }}">{{ row.addonSummary }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#985633">{{ row.addonCount }}</span>
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">{{ row.addonToggleWord }}</span>
+</button>
+<sc-if value="{{ row.addonsOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;top:calc(100% + 4px);background:#FAF6F0;border:1px solid rgba(42,38,34,.24);border-radius:2px;z-index:4">
+<sc-for list="{{ row.addons }}" as="addon" hint-placeholder-count="6">
+<button type="button" onClick="{{ addon.onToggle }}" style="width:100%;background:{{ addon.bg }};border:0;border-bottom:1px solid rgba(42,38,34,.12);padding:14px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;text-align:left;min-height:48px">
+<span style="width:14px;height:14px;border:1px solid {{ addon.markBorder }};background:{{ addon.mark }};border-radius:2px;flex:none"></span>
+<span style="flex:1;font:400 14px/1.4 Inter,sans-serif;color:#2A2622">{{ addon.label }}</span>
+<span style="font:400 16px/1.2 'Cormorant Garamond',serif;font-variant-numeric:oldstyle-nums;color:#985633;white-space:nowrap">{{ addon.priceLabel }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<label style="display:grid;gap:8px;margin-top:24px">
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">Notes on this room</span>
+<textarea rows="3" value="{{ row.notes }}" onChange="{{ row.onNotes }}" data-focus="notes-{{ row.anchor }}" placeholder="What bothers you about it, what has to stay"></textarea>
+</label>
+<div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap">
+<button type="button" onClick="{{ row.onToggleOpen }}" style="background:transparent;border:1px solid rgba(42,38,34,.24);border-radius:2px;color:#2A2622;font:500 11px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:14px 16px;cursor:pointer;min-height:44px">Done with this room</button>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:24px"><div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+<button type="button" onClick="{{ onAddRow }}" style="background:transparent;border:1px solid rgba(42,38,34,.24);border-radius:2px;color:#985633;font:500 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:16px 24px;cursor:pointer;min-height:44px">Add another room</button>
+
+</div></div>
+</div>
+<div style="margin-top:96px;border-top:1px solid rgba(42,38,34,.12);padding-top:32px">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 12px">Step Four · Send it</p>
+<h2 style="font:400 32px/1.2 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0">Take the plan with <em>you</em>.</h2>
+<p style="font-size:16px;line-height:1.65;color:#6B635B;max-width:68ch;margin:16px 0 0">Download the breakdown as a text file to keep or forward, then book the consultation. Nothing here is binding — final pricing is agreed before payment is expected, and multi-room lists usually come down from these numbers.</p>
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:32px">
+<button type="button" onClick="{{ onDownload }}" style="background:#985633;color:#FAF6F0;border:0;border-radius:2px;font:500 14px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:18px 32px;cursor:pointer">Download my project report</button>
+<a href="contact.html" style="border:1px solid rgba(42,38,34,.24);color:#2A2622;padding:18px 32px;border-radius:2px;font:500 14px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none">Book an Initial Consultation</a>
+</div>
+<p style="font-size:14px;line-height:1.55;color:#6B635B;margin:24px 0 0">Or email it to <a href="mailto:britt@aethanhouse.com?subject=Project%20Builder%20report">britt@aethanhouse.com</a> and I will read it before we talk.</p>
+</div>
+</div>
+<aside style="position:sticky;top:104px;background:#1C2621;-webkit-font-smoothing:antialiased;border-radius:2px;padding:32px;z-index:1;max-height:calc(100vh - 136px);overflow:auto">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C87F55;margin:0 0 8px">Your plan</p>
+<p style="font:400 32px/1.2 'Cormorant Garamond',serif;letter-spacing:-.01em;color:#F2EBE1;margin:0">{{ planTitle }}</p>
+<p style="font:400 24px/1.4 'Cormorant Garamond',serif;letter-spacing:-.01em;color:#F2EBE1;margin:24px 0 0;text-wrap:pretty">Let's explore how your <span style="opacity:{{ adLibHomeOpacity }}">{{ adLibHome }}</span> home meets your <span style="opacity:{{ adLibPersonalOpacity }}">{{ adLibPersonal }}</span> style.</p>
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C87F55;margin:32px 0 8px">COST BREAKDOWN</p>
+<div>
+<sc-for list="{{ receipt }}" as="line" hint-placeholder-count="4">
+<button type="button" class="receipt-row" onClick="{{ line.onJump }}" style="width: 100%; background: transparent; border: 0; border-top: 1px solid rgba(242,235,225,.14); padding: 12px 8px; cursor: {{ line.cursor }}; display: flex; align-items: flex-start; gap: 12px; text-align: left; transition: background 150ms ease; padding-left: 0px; padding-right: 0px; padding-top: 10px; padding-bottom: 10px">
+<span style="flex:1;display:grid;gap:2px">
+<span style="font:500 12px/1.4 Inter,sans-serif;color:{{ line.color }};padding-left:{{ line.indent }}">{{ line.label }}</span>
+
+</span>
+<span style="font:400 14px/1.4 'Cormorant Garamond',serif;font-variant-numeric:oldstyle-nums;color:{{ line.color }};white-space:nowrap">{{ line.value }}</span>
+</button>
+</sc-for>
+</div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:24px;padding-top:16px;border-top:1px solid rgba(242,235,225,.14)">
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C87F55;flex:1">Running range</span>
+</div>
+<p style="font-size:12px;line-height:1.5;color:#A8A093;margin:16px 0 0">This range represents a rough estimate, not a real quote.</p><p style="font: 400 44px/1.1 'Cormorant Garamond',serif; letter-spacing: -.01em; font-variant-numeric: oldstyle-nums; color: #F2EBE1; margin: 8px 0 0; text-align: right">{{ estimate }}</p>
+
+</aside>
+</section>
+<footer class="on-deep" style="background:var(--surface-deep);color:var(--text-inverse);-webkit-font-smoothing:antialiased">
+<div style="max-width:var(--content-max);margin:0 auto;padding:var(--space-8) var(--gutter)">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap">
+<p style="font-family:var(--font-display);font-weight:var(--weight-regular);font-size:var(--display-m);line-height:1;letter-spacing:var(--track-display);color:var(--text-inverse);margin:0">Aethan House</p>
+<ul style="list-style:none;display:flex;gap:var(--space-4);margin:0;padding:0;flex-wrap:wrap"><li><a href="projects.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">Work</a></li><li><a href="services.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">Services</a></li><li><a href="project-builder.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">Project Builder</a></li><li><a href="about.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">About</a></li><li><a href="contact.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">Contact</a></li></ul>
+</div>
+<p style="font-family:var(--font-ui);font-size:var(--caption);line-height:var(--caption-lh);letter-spacing:.08em;color:var(--text-inverse-muted);margin:var(--space-6) 0 0;padding-top:var(--space-3);border-top:1px solid var(--rule-on-dark)">© 2026 Aethan House · Atlanta, Georgia · britt@aethanhouse.com</p>
+</div>
+</footer>
+</div>
+</script>
+<script src="assets/dc-mini.js"></script>
+<script src="assets/project-builder.js"></script>
+</body>
+</html>

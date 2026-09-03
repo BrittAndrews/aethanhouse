@@ -1,0 +1,8 @@
+.DS_Store
+
+# Claude Design export — 45MB of source artboards, the design-system bundle and
+# the original uploads. Kept locally so design/convert.py can recompile the
+# pages; too large to belong in the repo. The compiled pages and the assets they
+# reference are committed.
+design/Portfolio site redesign/
+design/*.zip

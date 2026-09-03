@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@400;500&display=swap");
+/* Only four cuts are licensed for use in this system: Cormorant Garamond 400 + 400 italic, Inter 400 + 500.
+   Do not load other weights. The families are served from Google Fonts (no self-hosted binaries). */
+:root{--font-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;--font-ui:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+:root{
+/* Light surfaces */
+--surface-base:#FAF6F0;--surface-raised:#F2EBE1;--surface-sunken:#E4D9C9;
+/* Dark surfaces */
+--surface-deep:#1C2621;--surface-deep-raised:#24302A;
+/* Text */
+--text-primary:#2A2622;--text-muted:#6B635B;--text-inverse:#F2EBE1;--text-inverse-muted:#A8A093;
+/* Accent — terracotta family */
+--accent:#C87F55;--accent-strong:#985633;--accent-hover:#D9926A;
+/* Secondary — sage family */
+--secondary:#8FA08D;--secondary-strong:#54634F;
+/* Named palette aliases (same values, brand names) */
+--alabaster:#FAF6F0;--linen:#F2EBE1;--oat:#E4D9C9;--pine:#1C2621;--pine-raised:#24302A;
+--ink:#2A2622;--terracotta:#C87F55;--clay:#985633;--sage:#8FA08D;--sage-deep:#54634F;
+/* Hairlines */
+--rule-on-light:rgba(42,38,34,.12);--rule-on-dark:rgba(242,235,225,.14);
+/* Chip fill */
+--chip-fill:rgba(143,160,141,.2);
+/* Focus */
+--focus-ring:#C87F55;
+}
+/* Dark-surface scope: drop this class on any full-bleed pine section and text/rule
+   semantics flip. Warm accents are only legible here. */
+.on-deep{--text-body:var(--text-inverse);--text-quiet:var(--text-inverse-muted);--rule:var(--rule-on-dark);--accent-text:var(--accent);--secondary-text:var(--secondary);color:var(--text-inverse);-webkit-font-smoothing:antialiased}
+:root{--text-body:var(--text-primary);--text-quiet:var(--text-muted);--rule:var(--rule-on-light);--accent-text:var(--accent-strong);--secondary-text:var(--secondary-strong)}
+:root{
+/* Scale — 1.25 ratio, 16px base */
+--display-xl:64px;--display-xl-lh:1.05; /* @kind other */
+--display-l:44px;--display-l-lh:1.12; /* @kind other */
+--display-m:32px;--display-m-lh:1.2; /* @kind other */
+--display-s:24px;--display-s-lh:1.3; /* @kind other */
+--body-l:19px;--body-l-lh:1.6; /* @kind other */
+--body-m:16px;--body-m-lh:1.65; /* @kind other */
+--body-s:14px;--body-s-lh:1.55; /* @kind other */
+--caption:12px;--caption-lh:1.45; /* @kind other */
+--eyebrow:11px;--eyebrow-lh:1.2; /* @kind other */
+/* Tracking */
+--track-display:-.01em; /* @kind other */
+--track-eyebrow:.14em; /* @kind other */
+--track-ui:.01em; /* @kind other */
+--track-button:.06em; /* @kind other */
+--track-chip:.1em; /* @kind other */
+/* Weights */
+--weight-regular:400; /* @kind other */
+--weight-medium:500; /* @kind other */
+/* Measure */
+--measure-prose:68ch; /* @kind other */
+/* Semantic roles */
+--type-display:var(--weight-regular) var(--display-l)/var(--display-l-lh) var(--font-display);
+--type-body:var(--weight-regular) var(--body-m)/var(--body-m-lh) var(--font-ui);
+}
+@media (max-width:767px){:root{--display-xl:40px;--display-l:32px;--display-m:26px}}
+:root{
+/* Base unit 8px. Every measurement is a multiple. */
+--space-0:0;--space-half:4px;--space-1:8px;--space-1-5:12px;--space-2:16px;--space-3:24px;
+--space-4:32px;--space-6:48px;--space-8:64px;--space-12:96px;--space-16:128px;--space-20:160px;
+/* Layout */
+--section-y:128px;--section-y-mobile:64px;
+--content-max:1200px;--prose-max:640px;
+--gutter:32px;--gutter-mobile:20px;
+--card-padding:32px;--card-padding-mobile:24px;
+--card-gap:24px;--card-gap-mobile:16px;
+--grid-columns:12; /* @kind other */
+--tap-min:44px;
+}
+@media (max-width:767px){:root{--section-y:64px;--gutter:20px;--card-padding:24px;--card-gap:16px}}
+:root{
+/* Nearly square. Rounded corners read as software; this reads as print. */
+--radius:2px;--radius-image:0;
+--border-hairline:1px;
+--border-light:1px solid var(--rule-on-light);
+--border-dark:1px solid var(--rule-on-dark);
+/* There is no elevation system. A drop shadow anywhere is a bug. */
+--shadow-none:none;
+/* Section divider: hairline at 60% width, left aligned, above headings */
+--divider-width:60%; /* @kind other */
+/* Backdrop for the sticky nav */
+--nav-bg:rgba(250,246,240,.92);
+--nav-blur:12px; /* @kind other */
+/* Image gradient protection: only where text sits on an image */
+--image-scrim:linear-gradient(to top,rgba(28,38,33,.4),rgba(28,38,33,0) 55%); /* @kind other */
+}
+:root{
+/* Three permitted motions. Nothing else moves. */
+--ease-enter:cubic-bezier(.16,1,.3,1); /* @kind other */
+--duration-enter:500ms; /* @kind other */
+--enter-translate:24px;
+--duration-hover:150ms; /* @kind other */
+--ease-hover:ease; /* @kind other */
+--duration-crossfade:250ms; /* @kind other */
+--focus-offset:3px;--focus-width:2px;
+}
+@keyframes ah-fade-up{from{opacity:0;transform:translateY(var(--enter-translate))}to{opacity:1;transform:none}}
+.ah-enter{animation:ah-fade-up var(--duration-enter) var(--ease-enter) both}
+@media (prefers-reduced-motion:reduce){.ah-enter{animation:none}*{transition-duration:1ms!important}}
+:where(a,button,[tabindex]):focus-visible{outline:var(--focus-width) solid var(--focus-ring);outline-offset:var(--focus-offset)}
+@import url("tokens/fonts.css");
+@import url("tokens/colors.css");
+@import url("tokens/typography.css");
+@import url("tokens/spacing.css");
+@import url("tokens/shape.css");
+@import url("tokens/motion.css");

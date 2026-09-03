@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Aethan House</title>
+<link rel="stylesheet" href="assets/ds.css">
+<link rel="stylesheet" href="assets/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{margin:0}em{font-style:italic;color:#985633}a{color:#985633}a:hover{color:#C87F55}input,select,textarea{font-family:Inter,system-ui,sans-serif;font-size:16px;color:#2A2622;background:#FAF6F0;border:1px solid rgba(42,38,34,.24);border-radius:2px;padding:14px 16px;width:100%}input:focus,select:focus,textarea:focus,button:focus{outline:2px solid #C87F55;outline-offset:3px}</style>
+</head>
+<body>
+<div style="background:#FAF6F0;color:#2A2622;font:400 16px/1.65 Inter,system-ui,sans-serif">
+<nav style="position:sticky;top:0;z-index:10;background:rgba(250,246,240,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(42,38,34,.12)">
+<div style="max-width:1200px;margin:0 auto;padding:20px 32px;display:flex;align-items:center;gap:32px">
+<a href="index.html" style="font:400 24px/1 'Cormorant Garamond',serif;letter-spacing:-.01em;color:#2A2622;text-decoration:none;white-space:nowrap">Aethan House</a>
+<span style="flex:1"></span>
+<a href="projects.html" style="font:400 14px/1 Inter,sans-serif;text-decoration:none;color:#2A2622">Work</a>
+<a href="services.html" style="font:400 14px/1 Inter,sans-serif;text-decoration:none;color:#2A2622">Services</a>
+<a href="about.html" style="font:400 14px/1 Inter,sans-serif;text-decoration:none;color:#2A2622">About</a>
+<a href="project-builder.html" style="font:400 14px/1 Inter,sans-serif;text-decoration:none;color:#2A2622">Project Builder</a>
+<a href="contact.html" style="background:#985633;color:#FAF6F0;padding:12px 20px;border-radius:2px;font:500 12px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none">Book a Consultation</a>
+</div>
+</nav>
+<section>
+<div style="max-width:1200px;margin:0 auto;padding:96px 32px 128px;display:grid;grid-template-columns:1fr .8fr;gap:96px;align-items:start">
+<div>
+<hr style="border:0;border-top:1px solid rgba(42,38,34,.12);width:60%;margin:0 0 32px">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B;margin:0 0 16px">Book a Consultation</p>
+<h1 style="font:400 64px/1.05 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0;max-width:16ch;text-wrap:pretty">Tell me about the <em>house</em>.</h1>
+<p style="font-size:19px;line-height:1.6;color:#6B635B;max-width:640px;margin:24px 0 0">Thirty minutes on video. I will give you an honest read on scope and budget, and tell you which tier fits each room — including the rooms that need nothing.</p>
+<div id="contact-sent" hidden>
+<div style="margin-top:48px;border-top:1px solid rgba(42,38,34,.12);padding-top:32px">
+<p style="font:400 32px/1.2 'Cormorant Garamond',serif;letter-spacing:-.01em;margin:0">Thank you. I reply within two business days.</p>
+<p style="font-size:16px;line-height:1.65;color:#6B635B;margin:16px 0 0;max-width:640px">If you sent a project report with it, we will start the call from that. Nothing in it is locked in.</p>
+<p style="font-size:14px;line-height:1.55;color:#6B635B;margin:16px 0 0">If it is urgent, email <a href="mailto:britt@aethanhouse.com">britt@aethanhouse.com</a> directly.</p>
+</div>
+</div>
+<div id="contact-form-wrap">
+<form id="contact-form" style="margin-top:48px;display:grid;gap:24px;max-width:720px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+<label style="display:grid;gap:8px">
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">Name</span>
+<input type="text" name="name" required="required">
+</label>
+<label style="display:grid;gap:8px">
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">Email</span>
+<input type="email" name="email" required="required">
+</label>
+</div>
+<label style="display:grid;gap:8px">
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">Where is the house</span>
+<input type="text" name="location" placeholder="City, state">
+</label>
+<label style="display:grid;gap:8px">
+<span style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B635B">What are you working on</span>
+<textarea name="message" rows="4" placeholder="The rooms, the timing, and anything already decided"></textarea>
+</label>
+<div style="margin-top:32px;border-top:1px solid rgba(42,38,34,.12);padding-top:32px">
+<p style="font-size:16px;line-height:1.65;color:#6B635B;max-width:68ch;margin:0">Want to come to the call with a room list and a rough range? Build one in the <a href="project-builder.html">Project Builder</a> and send it with your request.</p>
+</div>
+<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding-top:16px">
+<button type="submit" style="background:#985633;color:#FAF6F0;border:0;border-radius:2px;font:500 14px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:18px 32px;cursor:pointer">Request a consultation</button>
+<span style="font-size:14px;color:#6B635B">Or email <a href="mailto:britt@aethanhouse.com">britt@aethanhouse.com</a></span>
+</div>
+</form>
+</div>
+</div>
+<aside style="background:#1C2621;-webkit-font-smoothing:antialiased;padding:48px;border-radius:2px;position:sticky;top:104px">
+<p style="font:500 11px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C87F55;margin:0 0 16px">Initial Consultation</p>
+<p style="font:400 44px/1.1 'Cormorant Garamond',serif;color:#F2EBE1;font-variant-numeric:oldstyle-nums;margin:0">$150</p>
+<p style="font:500 12px/1.45 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#A8A093;margin:8px 0 0">Credited in full toward whatever you book next</p>
+<ul style="list-style:none;margin:32px 0 0;padding:0">
+<li style="font-size:14px;line-height:1.55;padding:12px 0;border-top:1px solid rgba(242,235,225,.14);color:#F2EBE1">30-minute video call</li>
+<li style="font-size:14px;line-height:1.55;padding:12px 0;border-top:1px solid rgba(242,235,225,.14);color:#F2EBE1">Walk the house on camera</li>
+<li style="font-size:14px;line-height:1.55;padding:12px 0;border-top:1px solid rgba(242,235,225,.14);color:#F2EBE1">A tier recommendation per room, in writing</li>
+<li style="font-size:14px;line-height:1.55;padding:12px 0;border-top:1px solid rgba(242,235,225,.14);color:#F2EBE1">A real number, once I have seen the rooms</li>
+<li style="font-size:14px;line-height:1.55;padding:12px 0;border-top:1px solid rgba(242,235,225,.14);color:#F2EBE1">Next step, if you want one, is the $500 Design Direction Session</li>
+</ul>
+<p style="font-size:14px;line-height:1.55;color:#A8A093;margin:32px 0 0;padding-top:24px;border-top:1px solid rgba(242,235,225,.14)">Atlanta, Georgia · working across the Southeast. Remote projects run from a measured set and photographs.</p>
+</aside>
+</div>
+</section>
+<footer class="on-deep" style="background:var(--surface-deep);color:var(--text-inverse);-webkit-font-smoothing:antialiased">
+<div style="max-width:var(--content-max);margin:0 auto;padding:var(--space-8) var(--gutter)">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap">
+<p style="font-family:var(--font-display);font-weight:var(--weight-regular);font-size:var(--display-m);line-height:1;letter-spacing:var(--track-display);color:var(--text-inverse);margin:0">Aethan House</p>
+<ul style="list-style:none;display:flex;gap:var(--space-4);margin:0;padding:0;flex-wrap:wrap"><li><a href="projects.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">Work</a></li><li><a href="services.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">Services</a></li><li><a href="project-builder.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">Project Builder</a></li><li><a href="about.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">About</a></li><li><a href="contact.html" style="font-family:var(--font-ui);font-size:var(--body-s);letter-spacing:var(--track-ui);color:var(--text-inverse);text-decoration:none">Contact</a></li></ul>
+</div>
+<p style="font-family:var(--font-ui);font-size:var(--caption);line-height:var(--caption-lh);letter-spacing:.08em;color:var(--text-inverse-muted);margin:var(--space-6) 0 0;padding-top:var(--space-3);border-top:1px solid var(--rule-on-dark)">© 2026 Aethan House · Atlanta, Georgia · britt@aethanhouse.com</p>
+</div>
+</footer>
+</div>
+<script>
+  // Swap the form for the confirmation block on submit, matching the design's
+  // sent / notSent states. No backend yet - see the note in the README.
+  (function () {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById('contact-form-wrap').hidden = true;
+      document.getElementById('contact-sent').hidden = false;
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+/* Mobile layer.
+   The design was exported as fixed-width desktop artboards with no breakpoints,
+   and every page is built from inline styles — so these overrides need
+   !important and attribute selectors to reach them. Desktop is untouched. */
+
+@media (max-width: 860px) {
+  /* Every multi-column content grid collapses to a single column.
+     "1fr auto" is left alone — it is a label/value row and still reads at 375px. */
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:repeat(2,1fr)"],
+  [style*="grid-template-columns:repeat(3,1fr)"],
+  [style*="grid-template-columns:1.1fr .9fr"],
+  [style*="grid-template-columns:.8fr 1.2fr"],
+  [style*="grid-template-columns:.72fr 1fr"],
+  [style*="grid-template-columns:1.3fr .7fr"],
+  [style*="grid-template-columns:1fr .8fr"],
+  [style*="grid-template-columns:1.2fr .8fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Sticky nav: wrap the links, drop the spacer that forces one long row */
+  nav > div {
+    flex-wrap: wrap !important;
+    gap: 12px 16px !important;
+    padding: 14px 20px !important;
+  }
+  nav > div > span[style*="flex:1"] { display: none !important; }
+  nav a[style*="text-transform:uppercase"] { padding: 10px 16px !important; }
+
+  /* Section rhythm: 128px desktop -> 64px mobile, 32px gutter -> 20px */
+  [style*="padding:128px 32px"] { padding: 64px 20px !important; }
+  [style*="padding:96px 32px 128px"] { padding: 56px 20px 64px !important; }
+  [style*="padding:96px 32px 64px"] { padding: 56px 20px 48px !important; }
+  [style*="padding:96px 32px"]:not([style*="128px"]):not([style*="64px"]) { padding: 56px 20px !important; }
+  [style*="padding:64px 32px 64px"] { padding: 48px 20px !important; }
+  [style*="padding:16px 32px"] { padding: 16px 20px !important; }
+  [style*="padding:18px 32px"] { padding: 18px 20px !important; }
+
+  /* Display type: the 64/44 scale is too large below 860px */
+  h1[style*="64px"] { font-size: 40px !important; }
+  h2[style*="44px"] { font-size: 32px !important; }
+  h3[style*="32px"] { font-size: 26px !important; }
+
+  /* Full-bleed imagery */
+  img[style*="height:720px"] { height: 380px !important; }
+  img[style*="height:620px"] { height: 340px !important; }
+  img[style*="height:560px"] { height: 300px !important; }
+}
+
+@media (max-width: 480px) {
+  h1[style*="64px"] { font-size: 34px !important; }
+  h2[style*="44px"] { font-size: 28px !important; }
+}
